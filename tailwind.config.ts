@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        team1: {
+          DEFAULT: "hsl(var(--team1))",
+        },
+        team2: {
+          DEFAULT: "hsl(var(--team2))",
+        },
+        gold: {
+          DEFAULT: "hsl(var(--neon-gold))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

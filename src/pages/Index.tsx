@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { categories } from "@/data/questions";
 import { ScoreBoard } from "@/components/ScoreBoard";
 import { Timer } from "@/components/Timer";
@@ -8,9 +9,18 @@ import { RandomSelector } from "@/components/RandomSelector";
 import { toast } from "sonner";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<typeof categories[0] | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showQuestion, setShowQuestion] = useState(false);
+
+  useEffect(() => {
+    const team1 = localStorage.getItem("team1Name");
+    const team2 = localStorage.getItem("team2Name");
+    if (!team1 || !team2) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSelectCategory = (category: typeof categories[0]) => {
     setSelectedCategory(category);
@@ -43,6 +53,11 @@ const Index = () => {
     toast.error("انتهى الوقت! ⏰");
   };
 
+  const handlePowerUpUsed = (team: 1 | 2, powerUpId: string) => {
+    // Handle power-up effects here
+    console.log(`Team ${team} used power-up: ${powerUpId}`);
+  };
+
   return (
     <div className="min-h-screen gradient-bg py-8 px-4">
       <div className="container mx-auto max-w-6xl">
@@ -57,7 +72,7 @@ const Index = () => {
         </header>
 
         {/* Score Board */}
-        <ScoreBoard />
+        <ScoreBoard onPowerUpUsed={handlePowerUpUsed} />
 
         {/* Random Selector */}
         <RandomSelector
