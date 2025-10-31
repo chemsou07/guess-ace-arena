@@ -22,7 +22,7 @@ const Setup = () => {
     <div className="min-h-screen gradient-bg flex items-center justify-center p-4">
       <Card className="glass-morphism p-8 max-w-2xl w-full animate-fade-in">
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold mb-4 neon-text">🎮 مسابقة ديسكورد</h1>
+          <h1 className="text-5xl font-bold mb-4 neon-text">🎮 من يكون؟</h1>
           <p className="text-xl text-muted-foreground">أدخل أسماء الفرق للبدء</p>
         </div>
 
