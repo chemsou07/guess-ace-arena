@@ -64,10 +64,10 @@ const Index = () => {
         {/* Header */}
         <header className="text-center mb-12 animate-fade-in">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 neon-text">
-            🎮 مسابقة ديسكورد
+             من يكون ؟؟
           </h1>
           <p className="text-xl text-muted-foreground">
-            اختبر معلوماتك في مختلف المجالات
+            خمن الشخصية من الوصف 
           </p>
         </header>
 
