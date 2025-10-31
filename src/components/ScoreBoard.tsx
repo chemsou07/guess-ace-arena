@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Plus, Minus } from "lucide-react";
 import { PowerUpsPanel } from "./PowerUpsPanel";
 import { PowerUp, initialPowerUps } from "@/types/powerups";
-import { toast } from "sonner";
 
 interface ScoreBoardProps {
   onPowerUpUsed?: (team: 1 | 2, powerUpId: string) => void;
@@ -16,7 +15,6 @@ export const ScoreBoard = ({ onPowerUpUsed }: ScoreBoardProps) => {
   const [team2Score, setTeam2Score] = useState(0);
   const [team1PowerUps, setTeam1PowerUps] = useState<PowerUp[]>(initialPowerUps);
   const [team2PowerUps, setTeam2PowerUps] = useState<PowerUp[]>(initialPowerUps);
-  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     const savedTeam1 = localStorage.getItem("team1Name");
@@ -25,28 +23,7 @@ export const ScoreBoard = ({ onPowerUpUsed }: ScoreBoardProps) => {
     if (savedTeam2) setTeam2Name(savedTeam2);
   }, []);
 
-  useEffect(() => {
-    if (team1Score >= 10 && !gameOver) {
-      setGameOver(true);
-      toast.success(`مبروك! ${team1Name} فاز بالمسابقة!`, {
-        description: "وصل الفريق إلى 10 نقاط",
-        duration: 10000,
-      });
-    } else if (team2Score >= 10 && !gameOver) {
-      setGameOver(true);
-      toast.success(`مبروك! ${team2Name} فاز بالمسابقة!`, {
-        description: "وصل الفريق إلى 10 نقاط",
-        duration: 10000,
-      });
-    }
-  }, [team1Score, team2Score, gameOver, team1Name, team2Name]);
-
   const adjustScore = (team: 1 | 2, amount: number) => {
-    if (gameOver) {
-      toast.error("اللعبة انتهت! الرجاء إعادة تشغيل المسابقة");
-      return;
-    }
-
     if (team === 1) {
       setTeam1Score(Math.max(0, team1Score + amount));
     } else {
@@ -116,16 +93,6 @@ export const ScoreBoard = ({ onPowerUpUsed }: ScoreBoardProps) => {
             <span className="text-muted-foreground">:</span>
             <span className="text-team2">{team2Score}</span>
           </div>
-          {gameOver && (
-            <div className="mt-4 text-lg text-gold animate-glow-pulse">
-              انتهت المسابقة!
-            </div>
-          )}
-          {!gameOver && (
-            <div className="mt-4 text-sm text-muted-foreground">
-              الفوز عند 10 نقاط
-            </div>
-          )}
         </div>
       </div>
 

@@ -55,7 +55,7 @@ export const Timer = ({ onTimeUp }: TimerProps) => {
           onClick={toggleTimer}
           size="icon"
           className="rounded-full w-10 h-10"
-          variant={isRunning ? "secondary" : "default"}
+          variant={isRunning ? "destructive" : "default"}
         >
           {isRunning ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
         </Button>
