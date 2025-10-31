@@ -45,27 +45,27 @@ export const Timer = ({ onTimeUp }: TimerProps) => {
   };
 
   return (
-    <div className="glass-morphism rounded-2xl p-6 text-center space-y-4">
-      <h3 className="text-xl font-semibold">المؤقت</h3>
-      <div className={`text-7xl font-bold ${getTimerColor()} neon-text transition-colors duration-300`}>
+    <div className="fixed bottom-6 left-6 glass-morphism rounded-2xl p-4 text-center space-y-3 z-50 shadow-2xl">
+      <h3 className="text-lg font-semibold">المؤقت</h3>
+      <div className={`text-5xl font-bold ${getTimerColor()} neon-text transition-colors duration-300`}>
         {seconds}
       </div>
-      <div className="flex gap-3 justify-center">
+      <div className="flex gap-2 justify-center">
         <Button
           onClick={toggleTimer}
           size="icon"
-          className="rounded-full w-12 h-12"
+          className="rounded-full w-10 h-10"
           variant={isRunning ? "destructive" : "default"}
         >
-          {isRunning ? <Pause className="h-6 w-6" /> : <Play className="h-6 w-6" />}
+          {isRunning ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
         </Button>
         <Button
           onClick={reset}
           size="icon"
           variant="outline"
-          className="rounded-full w-12 h-12"
+          className="rounded-full w-10 h-10"
         >
-          <RotateCcw className="h-6 w-6" />
+          <RotateCcw className="h-5 w-5" />
         </Button>
       </div>
     </div>

@@ -8,12 +8,14 @@ import { RandomSelector } from "@/components/RandomSelector";
 import { toast } from "sonner";
 
 const Index = () => {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [selectedCategory, setSelectedCategory] = useState<typeof categories[0] | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [showQuestion, setShowQuestion] = useState(false);
 
   const handleSelectCategory = (category: typeof categories[0]) => {
     setSelectedCategory(category);
     setCurrentQuestionIndex(0);
+    setShowQuestion(true);
   };
 
   const handleNext = () => {
@@ -33,6 +35,7 @@ const Index = () => {
     if (category) {
       setSelectedCategory(category);
       setCurrentQuestionIndex(questionIndex);
+      setShowQuestion(true);
     }
   };
 
@@ -56,38 +59,41 @@ const Index = () => {
         {/* Score Board */}
         <ScoreBoard />
 
-        <div className="grid lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2">
-            {/* Random Selector */}
-            <RandomSelector
-              categories={categories}
-              onSelectRandom={handleRandomSelect}
+        {/* Random Selector */}
+        <RandomSelector
+          categories={categories}
+          onSelectRandom={handleRandomSelect}
+        />
+
+        {/* Category Selector */}
+        <CategorySelector
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={handleSelectCategory}
+        />
+
+        {/* Question Card */}
+        {showQuestion && selectedCategory && (
+          <div className="max-w-4xl mx-auto">
+            <QuestionCard
+              question={selectedCategory.questions[currentQuestionIndex]}
+              questionNumber={currentQuestionIndex + 1}
+              totalQuestions={selectedCategory.questions.length}
+              onNext={handleNext}
+              onPrevious={handlePrevious}
             />
-
-            {/* Category Selector */}
-            <CategorySelector
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onSelectCategory={handleSelectCategory}
-            />
-
-            {/* Question Card */}
-            {selectedCategory && (
-              <QuestionCard
-                question={selectedCategory.questions[currentQuestionIndex]}
-                questionNumber={currentQuestionIndex + 1}
-                totalQuestions={selectedCategory.questions.length}
-                onNext={handleNext}
-                onPrevious={handlePrevious}
-              />
-            )}
           </div>
+        )}
 
-          {/* Timer */}
-          <div className="lg:col-span-1">
-            <Timer onTimeUp={handleTimeUp} />
+        {!showQuestion && (
+          <div className="glass-morphism rounded-2xl p-12 text-center max-w-2xl mx-auto animate-fade-in">
+            <h2 className="text-3xl font-bold mb-4">اختر تصنيف أو اضغط على الاختيار العشوائي</h2>
+            <p className="text-xl text-muted-foreground">لبدء المسابقة 🎮</p>
           </div>
-        </div>
+        )}
+
+        {/* Timer - Fixed Position */}
+        <Timer onTimeUp={handleTimeUp} />
       </div>
     </div>
   );

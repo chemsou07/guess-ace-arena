@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Question } from "@/data/questions";
 import { Button } from "@/components/ui/button";
 import { Lightbulb, Eye, ChevronLeft, ChevronRight } from "lucide-react";
-import { toast } from "sonner";
 
 interface QuestionCardProps {
   question: Question;
@@ -22,11 +21,8 @@ export const QuestionCard = ({
   const [showHint, setShowHint] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const handleShowHint = () => {
-    setShowHint(true);
-    toast.info("تلميح!", {
-      description: question.hint,
-    });
+  const toggleHint = () => {
+    setShowHint(!showHint);
   };
 
   return (
@@ -42,6 +38,17 @@ export const QuestionCard = ({
           {question.description}
         </h2>
 
+        {showHint && (
+          <div className="bg-accent/20 border-2 border-accent rounded-xl p-6 animate-slide-up">
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground mb-2">💡 تلميح:</p>
+              <p className="text-xl font-semibold text-accent">
+                {question.hint}
+              </p>
+            </div>
+          </div>
+        )}
+
         {showAnswer && (
           <div className="bg-primary/20 border-2 border-primary rounded-xl p-6 animate-slide-up">
             <div className="text-center">
@@ -55,13 +62,12 @@ export const QuestionCard = ({
 
         <div className="flex flex-wrap gap-3 justify-center pt-4">
           <Button
-            onClick={handleShowHint}
-            variant="outline"
+            onClick={toggleHint}
+            variant={showHint ? "secondary" : "outline"}
             className="rounded-full gap-2"
-            disabled={showHint}
           >
             <Lightbulb className="h-5 w-5" />
-            تلميح
+            {showHint ? "إخفاء التلميح" : "تلميح"}
           </Button>
 
           <Button

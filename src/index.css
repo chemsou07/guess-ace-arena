@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 220 17% 24%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 340 82% 52%;
+    --accent: 217 91% 40%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
@@ -40,7 +40,7 @@ All colors MUST be HSL.
 
     --neon-cyan: 189 94% 43%;
     --neon-purple: 271 81% 56%;
-    --neon-pink: 340 82% 52%;
+    --neon-blue: 217 91% 40%;
     
     --glass-bg: 220 20% 18% / 0.6;
     --glass-border: 210 40% 98% / 0.1;
